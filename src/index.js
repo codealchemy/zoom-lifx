@@ -1,4 +1,4 @@
-const { changeLightState, getLightInfo, getAllLights } = require("./api/hue")
+const { changeLightState } = require("./api/lifx")
 const config = require("../.private/config")
 const colors = require("./constants/colors")
 const { watchProcess } = require("./watchProcess")
@@ -6,10 +6,7 @@ const { watchProcess } = require("./watchProcess")
 const onMeetingStarted = async () => {
   console.log("You are on air!")
   try {
-    await changeLightState(config.lightId, {
-      on: true,
-      ...colors.onAir,
-    })
+    await changeLightState(config.lightId, colors.onAir)
   } catch (ex) {
     console.error(ex)
   }
@@ -18,15 +15,13 @@ const onMeetingStarted = async () => {
 const onMeetingEnded = async () => {
   console.log("Meeting ended")
   try {
-    await changeLightState(config.lightId, {
-      on: false,
-    })
+    await changeLightState(config.lightId, colors.offAir)
   } catch (ex) {
     console.error(ex)
   }
 }
 
 ;(async () => {
-  console.log("Zoom Hue watcher started")
+  console.log("Zoom Lifx watcher started")
   await watchProcess("zoom.us", onMeetingStarted, onMeetingEnded)
 })()

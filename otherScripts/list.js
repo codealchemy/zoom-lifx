@@ -1,33 +1,25 @@
-const { getAllLights, getAllGroups } = require("../src/api/hue")
-const R = require("ramda")
-
-const getRoomNameByLightId = (groups, lightId) => {
-  const [groupId, group] =
-    Object.entries(groups).find(([id, room]) => {
-      return room.lights.includes(lightId)
-    }) || []
-  return group ? group.name : "-"
-}
+const { getAllLights } = require('../src/api/lifx');
 
 /**
  * Lists all lights in a table
  */
 ;(async () => {
+  console.log('Looking for lights on network...')
+
   try {
     const lights = await getAllLights()
-    const groups = await getAllGroups()
 
-    const data = R.mapObjIndexed(
-      (light, lightId) => ({
-        Name: light.name,
-        Room: getRoomNameByLightId(groups, lightId),
-        State: light.state.on ? "on" : "off",
-        Available: light.state.reachable ? "available" : "unavailable",
-      }),
-      lights
-    )
-    console.table(data)
+    const data = lights.reduce((result, light) => {
+      result.push({
+        Name: light.label,
+        Id: light.id,
+        State: light.status
+      });
+      return result
+    }, [])
+
+    return console.table(data)
   } catch (ex) {
-    console.error(ex)
+    return console.error(ex)
   }
-})()
+})();

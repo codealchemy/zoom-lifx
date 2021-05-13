@@ -1,25 +1,22 @@
 {
-  "name": "zoom-hue",
+  "name": "zoom-lifx",
   "version": "1.0.0",
-  "description": "Automatically turn on a philips hue light when you're on a zoom call",
+  "description": "Automatically turn on a Lifx light when you're on a Zoom call",
   "main": "src/index.js",
   "scripts": {
     "start": "node ./src/index.js",
     "toggle": "node ./otherScripts/toggle.js",
-    "list": "node ./otherScripts/list.js",
     "info": "node ./otherScripts/info.js",
-    "cycle": "node ./otherScripts/cycle.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "list": "node ./otherScripts/list.js"
   },
-  "author": "Jeremy Casey",
+  "author": "Jeremy Casey, Alex Schmitt",
   "license": "ISC",
   "devDependencies": {
     "prettier": "^2.2.1"
   },
   "dependencies": {
-    "node-fetch": "^2.6.1",
+    "lifx-lan-client": "^1.0.5",
     "ps-list": "^7.2.0",
-    "ramda": "^0.27.1",
     "yargs": "^17.0.1"
   }
 }

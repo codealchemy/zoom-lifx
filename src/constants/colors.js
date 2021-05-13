@@ -1,9 +1,16 @@
-const onAir = {
-  bri: 254,
-  hue: 65527,
-  sat: 253,
-}
+const onAir = [
+  0,   // hue
+  100, // saturation
+  100, // brightness
+]
+
+const offAir = [
+  0, // hue
+  0, // saturation
+  0, // brightness
+]
 
 module.exports = {
   onAir,
+  offAir,
 }

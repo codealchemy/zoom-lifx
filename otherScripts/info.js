@@ -1,4 +1,4 @@
-const { getLightInfo } = require("../src/api/hue")
+const { getLightInfo } = require("../src/api/lifx")
 const config = require("../.private/config")
 const { getArgWithDefault } = require("../src/utils/cli")
 
@@ -13,7 +13,12 @@ const { getArgWithDefault } = require("../src/utils/cli")
 
     const lightInfo = await getLightInfo(lightId)
 
-    console.log(lightInfo)
+    console.table({
+      Id: lightInfo.id,
+      Label: lightInfo.label,
+      Status: lightInfo.status,
+      Address: lightInfo.address
+    })
   } catch (ex) {
     console.error(ex)
   }

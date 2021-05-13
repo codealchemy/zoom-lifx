@@ -1,8 +1,10 @@
-# Zoom Hue
+# Zoom Lifx
 
-Automatically turn on a philips hue light when you have the Zoom application open.
+Automatically turn on a Lifx light when you have the Zoom application open.
 
-I've created this app for personal reasons. I have a Philips Hue light strip attached to my desk. If it's turned on, and red, it warns others in the house that I'm on video.
+Inspired by [`zoom-hue`](https://github.com/jeremy8883/zoom-hue), using [`lifx-lan-client`](https://github.com/node-lifx/lifx-lan-client) to update lights without needing to call a web API (more on the Lifx LAN protocol [here](https://lan.developer.lifx.com/docs))
+
+This is intended to work with color lights, though _may_ work with other types of lights (such as ['Day & Dusk'](https://www.lifx.com/collections/refurbished/products/lifx-mini-day-dusk-refurbished)) with limited capabilities - ie. only turning them on or off)
 
 ## Getting started
 
@@ -11,8 +13,6 @@ mkdir .private
 cp ./config.example.js ./.private/config.js
 yarn install
 ```
-
-Update the config file with your Philips Hue information. More information on generating credentials [here](https://developers.meethue.com/develop/get-started-2/).
 
 ```
 yarn run start
@@ -35,11 +35,5 @@ yarn run info
 Turn a light on/off
 
 ```
-yarn run toggle 1
-```
-
-Cycle through a list of pre-defined colours.
-
-```
-yarn run cycle 1
+yarn run toggle d000d00000d0
 ```

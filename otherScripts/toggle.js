@@ -1,5 +1,6 @@
-const { changeLightState, getLightInfo } = require("../src/api/hue")
+const { changeLightState, getLightInfo } = require("../src/api/lifx")
 const config = require("../.private/config")
+const colors = require("../src/constants/colors")
 const { getArgWithDefault } = require("../src/utils/cli")
 
 /**
@@ -11,13 +12,14 @@ const { getArgWithDefault } = require("../src/utils/cli")
 
     const lightInfo = await getLightInfo(lightId)
 
-    const turnOn = !lightInfo.state.on
+    const turnOn = lightInfo.status === 'on'
 
-    await changeLightState(lightId, {
-      on: turnOn,
-    })
+    const colorArgs = turnOn ? colors.offAir : colors.onAir
+
+    await changeLightState(lightId, colorArgs)
+
     console.log(
-      `Light "${lightInfo.name}" (${lightId}) turned ${turnOn ? "on" : "off"}`
+      `Light "${lightInfo.label}" (${lightId}) turned ${turnOn ? "on" : "off"}`
     )
   } catch (ex) {
     console.error(ex)
